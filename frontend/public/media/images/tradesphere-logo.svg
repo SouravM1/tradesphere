@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="600" height="150" viewBox="0 0 600 150" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Gradient definitions -->
+  <defs>
+    <linearGradient id="sphereGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4facfe"/>
+      <stop offset="100%" stop-color="#0066ff"/>
+    </linearGradient>
+    
+    <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00c6ff"/>
+      <stop offset="100%" stop-color="#0072ff"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sphere icon -->
+  <circle cx="75" cy="75" r="45" fill="url(#sphereGradient)" />
+
+  <!-- Trading upward trend line -->
+  <polyline points="45,85 65,70 85,80 110,55"
+            fill="none"
+            stroke="url(#lineGradient)"
+            stroke-width="5"
+            stroke-linecap="round"
+            stroke-linejoin="round" />
+
+  <!-- Arrow tip -->
+  <polygon points="110,55 105,58 108,63"
+           fill="#0072ff" />
+
+  <!-- Text -->
+  <text x="150" y="95"
+        font-family="Segoe UI, Arial, sans-serif"
+        font-size="48"
+        font-weight="bold"
+        fill="#1a1a1a"
+        letter-spacing="2">
+        TradeSphere
+  </text>
+
+</svg>

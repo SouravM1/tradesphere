@@ -1,0 +1,143 @@
+/* Zerodha-style auth pages (login/signup) */
+.auth-page {
+  min-height: calc(100vh - 180px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.auth-card h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #424242;
+  margin-bottom: 1.5rem;
+}
+
+.auth-card .form-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #616161;
+  margin-bottom: 0.35rem;
+}
+
+.auth-card .form-control {
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.9375rem;
+  min-height: 44px;
+  transition: border-color 0.2s ease;
+}
+
+@media (max-width: 768px) {
+  .auth-card .form-control {
+    font-size: 1rem;
+  }
+}
+
+.auth-card .form-control:focus {
+  border-color: #f56834;
+  box-shadow: 0 0 0 2px rgba(245, 104, 52, 0.15);
+}
+
+.btn-zerodha {
+  background: #f56834 !important;
+  border: none !important;
+  color: #fff !important;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem !important;
+  border-radius: 4px;
+  width: 100%;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 4px rgba(245, 104, 52, 0.2);
+  cursor: pointer;
+}
+
+.btn-zerodha:hover {
+  background: #e55a28 !important;
+  color: #fff !important;
+  box-shadow: 0 4px 8px rgba(245, 104, 52, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-zerodha:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(245, 104, 52, 0.2);
+}
+
+.btn-zerodha:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(245, 104, 52, 0.25) !important;
+}
+
+.btn-zerodha:disabled {
+  background: #bdbdbd !important;
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.65;
+}
+
+.auth-card .alert-danger {
+  background: #ffebee;
+  border: none;
+  color: #c62828;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+.auth-card .auth-footer {
+  margin-top: 1.25rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #757575;
+}
+
+.auth-card .auth-footer a {
+  color: #f56834;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-card .auth-footer a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .auth-page {
+    padding: 1.5rem 1rem;
+  }
+  .auth-card {
+    padding: 1.75rem 1.5rem;
+    max-width: 100%;
+  }
+  .btn-zerodha {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 576px) {
+  .auth-page {
+    min-height: calc(100vh - 140px);
+    padding: 1rem 0.75rem;
+  }
+  .auth-card {
+    padding: 1.5rem 1.25rem;
+    max-width: 100%;
+  }
+  .auth-card h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+}
