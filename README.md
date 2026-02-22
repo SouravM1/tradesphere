@@ -1,4 +1,4 @@
-# Zerodha MERN Stack App
+# TradeSphere MERN Stack App
 
 Full-stack web app (MongoDB, Express, React, Node) with authentication, dashboard, and responsive UI.
 
