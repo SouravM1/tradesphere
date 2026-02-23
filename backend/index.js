@@ -2,8 +2,6 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
-
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
@@ -13,105 +11,58 @@ const { PositionsModel } = require("./model/PositionsModel");
 const authRoutes = require("./routes/authRoutes");
 const { authenticate } = require("./middleware/authMiddleware");
 
+const app = express();
 const PORT = process.env.PORT || 3002;
 const uri = process.env.MONGO_URL;
 
-const app = express();
 
-
-// ✅ FIXED CORS CONFIG (works for Vercel + Railway + Localhost)
-const allowedOrigins = [
-  "http://localhost:3000",
-  "http://localhost:5173",
-   "https://tradesphere-alpha.vercel.app/",
-  "https://tradesphere-git-main-souravs-projects-cd880c32.vercel.app/",
-];
-
+// ✅ VERY SIMPLE CORS (NO RESTRICTION FOR NOW)
 app.use(cors({
-  origin: function (origin, callback) {
-    // allow requests with no origin (mobile apps, curl, postman)
-    if (!origin) return callback(null, true);
-
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    } else {
-      console.log("Blocked by CORS:", origin);
-      return callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
-// handle preflight
+// Handle preflight manually
 app.options("*", cors());
 
-
-// security + logging
 app.use(helmet());
-app.use(morgan(process.env.NODE_ENV === "production" ? "combined" : "dev"));
+app.use(morgan("dev"));
+app.use(express.json());
 
-app.use(bodyParser.json());
 
-
-// ✅ Health check route
+// Health
 app.get("/health", (req, res) => {
-  res.status(200).json({
-    status: "ok",
-    timestamp: new Date().toISOString(),
-  });
+  res.json({ status: "ok" });
 });
 
-
-// ✅ Auth routes
+// Auth routes
 app.use("/auth", authRoutes);
 
-
-// ✅ Protected routes
+// Protected routes
 app.get("/allHoldings", authenticate, async (req, res) => {
-  try {
-    const allHoldings = await HoldingsModel.find({});
-    res.json(allHoldings);
-  } catch (err) {
-    res.status(500).json({ message: "Failed to fetch holdings" });
-  }
+  const data = await HoldingsModel.find({});
+  res.json(data);
 });
-
 
 app.get("/allPositions", authenticate, async (req, res) => {
-  try {
-    const allPositions = await PositionsModel.find({});
-    res.json(allPositions);
-  } catch (err) {
-    res.status(500).json({ message: "Failed to fetch positions" });
-  }
+  const data = await PositionsModel.find({});
+  res.json(data);
 });
 
-
-// ✅ Global error handler (MUST BE LAST)
+// Error handler
 app.use((err, req, res, next) => {
-  console.error("Error:", err.message);
-
-  if (res.headersSent) {
-    return next(err);
-  }
-
-  res.status(err.status || 500).json({
-    message: err.message || "Internal server error",
-  });
+  console.error(err);
+  res.status(500).json({ message: "Server error" });
 });
 
-
-// ✅ Connect DB and start server
-mongoose
-  .connect(uri)
+mongoose.connect(uri)
   .then(() => {
-    console.log("✅ MongoDB connected");
-
+    console.log("DB connected");
     app.listen(PORT, () => {
-      console.log(`✅ Server running on port ${PORT}`);
+      console.log("Server running on port", PORT);
     });
   })
-  .catch((error) => {
-    console.error("❌ MongoDB connection error:", error);
-    process.exit(1);
+  .catch(err => {
+    console.error("Mongo error:", err);
   });
