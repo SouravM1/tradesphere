@@ -42,4 +42,5 @@ export async function getMe() {
   return apiRequest("/auth/me");
 }
 
-export default { apiRequest, register, login, getMe, getToken };
+const api = { apiRequest, register, login, getMe, getToken };
+export default api;

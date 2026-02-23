@@ -25,7 +25,6 @@ const Holdings = () => {
   if (loading) return <p className="title">Loading holdings…</p>;
   if (error) return <p className="title text-danger">Error: {error}</p>;
 
-  const labels = allHoldings.map((s) => s.name);
 
   return (
     <>
