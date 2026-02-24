@@ -278,6 +278,29 @@ footer .container .row .col img,
   margin-right: 0.5rem;
 }
 
+/* Responsive Hero section */
+.hero-section {
+  padding: 2rem 1rem;
+}
+.hero-signup-btn {
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .hero-section {
+    padding: 1rem 0.5rem;
+  }
+  .hero-signup-btn {
+    font-size: 1rem;
+    padding: 0.7rem 1.2rem;
+    min-height: 42px;
+    width: 100%;
+    max-width: 100%;
+  }
+}
 .nav-logout-btn {
   background: #f56834 !important;
   border: none !important;

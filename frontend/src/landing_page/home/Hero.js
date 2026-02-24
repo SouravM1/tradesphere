@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Hero() {
   return (
-    <div className="container p-5 mb-5">
+    <div className="container p-5 mb-5 hero-section">
       <div className="row text-center">
         <img
           src="media/images/homeHero.png"
@@ -17,8 +17,8 @@ function Hero() {
         </p>
         <Link
           to="/signup"
-          className="p-2 btn btn-primary fs-5 mb-5"
-          style={{ width: "20%", margin: "0 auto" }}
+          className="p-2 btn btn-primary fs-5 mb-5 hero-signup-btn"
+          style={{ width: "100%", maxWidth: "320px", margin: "0 auto" }}
         >
           Sign up
         </Link>

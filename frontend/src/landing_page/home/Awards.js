@@ -2,12 +2,16 @@ import React from "react";
 
 function Awards() {
   return (
-    <div className="container mt-5">
+    <div className="container mt-5 awards-section">
       <div className="row">
-        <div className="col-6 p-5">
-          <img src="media/images/largestBroker.svg" alt="Largest Broker" />
+        <div className="col-12 col-md-6 p-5">
+          <img
+            src="media/images/largestBroker.svg"
+            alt="Largest Broker"
+            style={{ width: "100%", maxWidth: "320px" }}
+          />
         </div>
-        <div className="col-6 p-5 mt-5">
+        <div className="col-12 col-md-6 p-5 mt-5">
           <h1>Largest stock broker in India</h1>
           <p className="mb-5">
             2+ million TradeSphere clients contribute to over 15% of all retail
@@ -41,7 +45,11 @@ function Awards() {
               </ul>
             </div>
           </div>
-              <img src="media/images/pressLogos.png" style={{ width: "90%" }} alt="Press Logos" />
+          <img
+            src="media/images/pressLogos.png"
+            style={{ width: "100%", maxWidth: "320px" }}
+            alt="Press Logos"
+          />
         </div>
       </div>
     </div>
