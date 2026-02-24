@@ -19,10 +19,24 @@ const uri = process.env.MONGO_URL;
 // middleware
 app.use(helmet());
 
+// app.use(cors({
+//   origin: process.env.CLIENT_URL || "*",
+//   credentials: true
+// }));
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || "*",
+  origin: function(origin, callback) {
+    const allowed = process.env.CLIENT_URL;
+
+    if (!origin || origin === allowed) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS not allowed"));
+    }
+  },
   credentials: true
 }));
+
 
 app.use(express.json());
 
