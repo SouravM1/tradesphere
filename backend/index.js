@@ -16,30 +16,38 @@ const app = express();
 const PORT = process.env.PORT || 3002;
 const uri = process.env.MONGO_URL;
 
-// middleware
+// security
 app.use(helmet());
 
-// app.use(cors({
-//   origin: process.env.CLIENT_URL || "*",
-//   credentials: true
-// }));
+// FIXED CORS
+const allowedOrigins = [
+  "https://tradesphere-alpha.vercel.app",
+  "http://localhost:3000"
+];
 
 app.use(cors({
   origin: function(origin, callback) {
-    const allowed = process.env.CLIENT_URL;
 
-    if (!origin || origin === allowed) {
+    if (!origin) return callback(null, true);
+
+    const normalizedOrigin = origin.replace(/\/$/, "");
+
+    if (allowedOrigins.includes(normalizedOrigin)) {
       callback(null, true);
     } else {
-      callback(new Error("CORS not allowed"));
+      console.log("Blocked by CORS:", origin);
+      callback(null, false);
     }
   },
-  credentials: true
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
+app.options(/^\/.*$/, cors());
 
+// middleware
 app.use(express.json());
-
 app.use(morgan("dev"));
 
 // routes
@@ -63,7 +71,7 @@ app.get("/allPositions", authenticate, async (req, res) => {
   res.json(data);
 });
 
-// error handler LAST
+// error handler
 app.use((err, req, res, next) => {
   console.error(err);
   res.status(500).json({ error: err.message });
@@ -72,6 +80,7 @@ app.use((err, req, res, next) => {
 // connect db
 mongoose.connect(uri)
 .then(() => {
+
   console.log("MongoDB connected");
 
   app.listen(PORT, () => {
